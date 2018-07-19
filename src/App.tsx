@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { IUser } from './user';
+import { Provider } from 'react-redux';
+import store from './store';
 
 import About from './About';
 import Home from './Home';
-import Context from './UserContext';
+// import Context from './UserContext';
 import Users from './Users';
 
 interface IState {
@@ -35,7 +37,7 @@ class App extends React.Component<{}, IState> {
   public render() {
     return (
       <div>
-        <Context.Provider value={{ updateUser: this.updateUser }}>
+        <Provider store={store}>
           <nav>
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
@@ -48,7 +50,7 @@ class App extends React.Component<{}, IState> {
               path="/users"
               render={props => <Users {...props} users={this.state.userDict} />} />
           </Switch>
-        </Context.Provider>
+        </Provider>
       </div>
     );
   }
