@@ -48,7 +48,7 @@ class App extends React.Component<{}, IState> {
             <Route exact path="/about" component={About} />
             <Route
               path="/users"
-              render={props => <Users {...props} users={this.state.userDict} />} />
+              render={props => <Users {...props} users={this.state.userDict} updateUser={this.updateUser} />} />
           </Switch>
         </Provider>
       </div>

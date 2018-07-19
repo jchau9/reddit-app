@@ -5,6 +5,7 @@ import { IUser } from './user'
 
 interface IProps extends RouteComponentProps<{}> {
     users: Record<number, IUser>;
+    updateUser: (userId: number, user: IUser) => void;
 }
 
 const ListDisplay = (props: { users: Record<number, IUser> }) => {
