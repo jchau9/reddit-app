@@ -4,9 +4,9 @@ import { IUser } from './user';
 import Context from './UserContext';
 
 
-interface IProps extends RouteComponentProps<{}> {
+/* interface IProps extends RouteComponentProps<{}> {
     user: IUser;
-}
+} */
 
 interface IState {
     age: string;
