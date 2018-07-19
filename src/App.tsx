@@ -7,6 +7,16 @@ import store from './store';
 import About from './About';
 import Home from './Home';
 // import Context from './UserContext';
+// store w/ reducers that manage users
+// should I redo the whole code ?? 
+// where to put provider? in app.tsx or in users.tsx
+// smart components: all code logic need to be handled here, also called containers,
+// interact with the store (aka state management) to update components
+// dumb components: just read props from containers and render components, is just UI view and should not contain logic
+// https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+// smart components (containers) interact w/ your redux store, fire actions from containers, actions call apis, result of 
+// action updates the store through a reducer, containers read the store through mapStateToProps function
+// as soon as value in store changes it updates the component
 import Users from './Users';
 
 interface IState {
