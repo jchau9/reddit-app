@@ -1,7 +1,7 @@
 import {createStore} from 'redux';
-import users, {State as UsersState} from './users';
+import users, {IState as UsersState} from './users';
 
-export type State = {
+export interface IState {
     users: UsersState;
 };
 

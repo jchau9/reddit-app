@@ -21,6 +21,7 @@ import store from './store';
 // action updates the store through a reducer, containers read the store 
 // through mapStateToProps function
 // as soon as value in store changes it updates the component
+// rewrite whole code ?? 
 
 const ConnectedUsers = users(Users);
 

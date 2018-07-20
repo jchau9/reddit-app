@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 
-import {State} from '../store';
+import {IState} from '../store';
 import {UPDATE_USER} from '../store/users';
 import { IUser } from '../user';
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: IState) => ({
     users: state.users.usersDict
 });
 

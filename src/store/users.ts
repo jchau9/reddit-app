@@ -1,6 +1,6 @@
 import { IUser } from '../user'
 
-export type State = {
+export interface IState{
     usersDict: Record<number, IUser>;
 };
 
@@ -10,22 +10,22 @@ const usersDict =  {
     0: { name: 'Ernesto', age: '56', occupation: 'retired gardener', description: 'bad at gardening', userId: 0 },
     1: { name: 'Wallace', age: '36', occupation: 'dogwalker', description: 'walks cats in his free time', userId: 1 },
     2: { name: 'Fabio', age: '23', occupation: 'student', description: 'trying to pay off debt and drink boba', userId: 2 }
-}
+}; 
 
-type Action = 
+interface IAction
     {
         type: typeof UPDATE_USER;
         user: IUser;
         userId: number;
     };
     
-function users(
-    state: State = {
-        usersDict: usersDict
+export default function users(
+    state: IState = {
+        usersDict: (usersDict),
     },
-    action: Action
-) : State {
-    switch (action.type) {
+    action: IAction
+) : IState {
+    /* switch (action.type) {
         case UPDATE_USER:
             return {
                 ...state,
@@ -33,7 +33,8 @@ function users(
             };
         default:
             return state;
-    }
+    } */
+    // tslint:disable-next-line:no-console
+    console.log(state.usersDict)
+    return state;
 }
-
-export default users;
