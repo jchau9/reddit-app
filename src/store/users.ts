@@ -21,7 +21,7 @@ interface IAction
     
 export default function users(
     state: IState = {
-        usersDict: (usersDict),
+        usersDict: (usersDict)
     },
     action: IAction
 ) : IState {
