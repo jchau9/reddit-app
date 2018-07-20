@@ -16,6 +16,7 @@ type Action =
     {
         type: typeof UPDATE_USER;
         user: IUser;
+        userId: number;
     };
     
 function users(
@@ -28,7 +29,7 @@ function users(
         case UPDATE_USER:
             return {
                 ...state,
-                usersDict: {...state.usersDict, [action.user.userId]:action.user}
+                usersDict: {...state.usersDict, [action.userId]:action.user}
             };
         default:
             return state;

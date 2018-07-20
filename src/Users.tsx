@@ -9,25 +9,6 @@ interface IProps extends RouteComponentProps<{}> {
     updateUser: (userId: number, user: IUser) => void;
 }
 
-/* const ListDisplay = (props: { users: Record<number, IUser> }) => {
-    const values = Object.keys(props.users).map(key => props.users[key]);
-    return (
-        <div>
-            {values.map((user: IUser, i: number) =>
-                <li
-                    key={"user" + i}
-                >
-                    <Link
-                        to={"/users/" + user.userId}
-                    >
-                        {user.name}
-                    </Link>
-                </li>
-            )}
-        </div>
-    );
-} */
-
 const Users: React.SFC<IProps> = ({users, updateUser, match}) => {
     const values = Object.keys(users).map(key => users[key]);
     return (

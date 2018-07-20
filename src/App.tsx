@@ -22,32 +22,9 @@ import store from './store';
 // through mapStateToProps function
 // as soon as value in store changes it updates the component
 
-/* interface IState {
-  userDict: Record<number, IUser>;
-} */
-
 const ConnectedUsers = users(Users);
 
 const App: React.SFC = () => (
-  /* public state: IState = {
-    userDict: {
-      0: { name: 'Ernesto', age: '56', occupation: 'retired gardener', description: 'bad at gardening', userId: 0 },
-      1: { name: 'Wallace', age: '36', occupation: 'dogwalker', description: 'walks cats in his free time', userId: 1 },
-      2: { name: 'Fabio', age: '23', occupation: 'student', description: 'trying to pay off debt and drink boba', userId: 2 }
-    }
-  } */
-
-/*   public updateUser = (userId: number, data: IUser) => {
-    this.setState(state => {
-      return {
-        ...state,
-        userDict: {
-          ...state.userDict,
-          [userId]: data
-        }
-      };
-    });
-  } */
     <Provider store={store}>
       <React.Fragment>
         <nav>

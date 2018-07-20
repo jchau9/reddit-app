@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    updateUser: (user: IUser) => dispatch({type: UPDATE_USER, user})
+    updateUser: (userId: number, user: IUser) => dispatch({type: UPDATE_USER, user, userId})
 });
 
 const connector = connect(
