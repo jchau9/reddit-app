@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Link, Route, RouteComponentProps } from 'react-router-dom';
 import EditForm from './EditForm'
-import { IUser } from './user'
+import { IUser } from './store/users'
 
 
 interface IProps extends RouteComponentProps<{}> {
     users: Record<number, IUser>;
-    updateUser: (userId: number, user: IUser) => void;
+    // updateUser: (userId: number, user: IUser) => void;
 }
 
-const Users: React.SFC<IProps> = ({ users, updateUser, match }) => { // add updateUser here
+const Users: React.SFC<IProps> = ({ users, match }) => {
     const values = Object.keys(users).map(key => users[key]);
     return (
         <div>
@@ -33,7 +33,7 @@ const Users: React.SFC<IProps> = ({ users, updateUser, match }) => { // add upda
                             key={`USER_ROUTE_${props.match.params.userId}`}
                             {...props}
                             user={users[props.match.params.userId]}
-                            updateUser={updateUser}
+                        /* updateUser={updateUser} */
                         />
                     );
                 }}

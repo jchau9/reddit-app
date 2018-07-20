@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { IState } from '../store';
-import { UPDATE_USER } from '../store/users';
-import { IUser } from '../user';
+import { IUser, UPDATE_USER } from '../store/users';
+
 
 const mapStateToProps = (state: IState) => ({
     users: state.users.usersDict

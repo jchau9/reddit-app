@@ -1,4 +1,10 @@
-import { IUser } from '../user'
+export interface IUser {
+    name: string;
+    age: string;
+    occupation: string;
+    description: string;
+    userId: number;
+}
 
 export interface IState {
     usersDict: Record<number, IUser>;
@@ -25,15 +31,12 @@ export default function users(
     action: IAction
 ): IState {
     switch (action.type) {
-        case UPDATE_USER:
+        /* case UPDATE_USER:
             return {
                 ...state,
                 usersDict: { ...state.usersDict, [action.userId]: action.user }
-            };
+            }; */
         default:
             return state;
     }
-    // tslint:disable-next-line:no-console
-    console.log(state.usersDict)
-    return state;
 }
