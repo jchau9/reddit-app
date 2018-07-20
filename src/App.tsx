@@ -48,20 +48,20 @@ const App: React.SFC = () => (
       };
     });
   } */
-  <div>
     <Provider store={store}>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/users">Users</Link>
-      </nav>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/about" component={About} />
-        <Route path="/users" component={ConnectedUsers}/>
-      </Switch>
+      <React.Fragment>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/users">Users</Link>
+        </nav>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
+          <Route path="/users" component={ConnectedUsers}/>
+        </Switch>
+      </React.Fragment>
     </Provider>
-  </div>
 );
 
 export default App;
