@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { IUser } from './user';
 
-interface IProps extends RouteComponentProps<{}> {
+interface IProps {
     user: IUser;
     updateUser: (userId: number, user: IUser) => void;
 }

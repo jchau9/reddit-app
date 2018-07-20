@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
-import Users from './Users';
-import users from './containers/users';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import About from './About';
 import Home from './Home';
+import Users from './Users';
+
+import users from './containers/users';
+import store from './store';
 // import Context from './UserContext';
 // store w/ reducers that manage users
 // should I redo the whole code ?? 
