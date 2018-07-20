@@ -31,11 +31,11 @@ export default function users(
     action: IAction
 ): IState {
     switch (action.type) {
-        /* case UPDATE_USER:
+        case UPDATE_USER:
             return {
                 ...state,
                 usersDict: { ...state.usersDict, [action.userId]: action.user }
-            }; */
+            };
         default:
             return state;
     }

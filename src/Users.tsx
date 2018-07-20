@@ -6,10 +6,10 @@ import { IUser } from './store/users'
 
 interface IProps extends RouteComponentProps<{}> {
     users: Record<number, IUser>;
-    // updateUser: (userId: number, user: IUser) => void;
+    updateUser: (userId: number, user: IUser) => void;
 }
 
-const Users: React.SFC<IProps> = ({ users, match }) => {
+const Users: React.SFC<IProps> = ({ users, updateUser, match }) => {
     const values = Object.keys(users).map(key => users[key]);
     return (
         <div>
@@ -33,7 +33,7 @@ const Users: React.SFC<IProps> = ({ users, match }) => {
                             key={`USER_ROUTE_${props.match.params.userId}`}
                             {...props}
                             user={users[props.match.params.userId]}
-                        /* updateUser={updateUser} */
+                            updateUser={updateUser}
                         />
                     );
                 }}

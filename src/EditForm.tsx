@@ -3,7 +3,7 @@ import { IUser } from './store/users';
 
 interface IProps {
     user: IUser;
-    // updateUser: (userId: number, user: IUser) => void;
+    updateUser: (userId: number, user: IUser) => void;
 }
 
 interface IState {
@@ -38,11 +38,13 @@ class EditForm extends React.Component<IProps, IState> {
                     <p>Description:</p>
                     <textarea name="description" value={this.state.description} onChange={this.handleChange} />
                     <br />
-                    {/* <button
-                        onClick={this.handleClick(this.props.updateUser)}
+                    <button
+                        onClick={() =>
+                            this.props.updateUser(this.props.user.userId, { ...this.state, userId: this.props.user.userId })
+                        }
                     >
                         Submit
-                    </button> */}
+                    </button>
                 </div>
             </div >
         );
@@ -51,12 +53,6 @@ class EditForm extends React.Component<IProps, IState> {
     private handleChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         this.setState({ [event.currentTarget.name]: event.currentTarget.value } as Pick<IState, keyof IState>);
     }
-
-    /*  private handleClick = (updateUser: (userId: number, data: IUser) => void) =>
-         (event: React.FormEvent<HTMLButtonElement>) => {
-             event.preventDefault();
-             updateUser(this.props.user.userId, { ...this.state, userId: this.props.user.userId });
-         } */
 }
 
 export default EditForm;

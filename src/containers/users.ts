@@ -4,12 +4,19 @@ import { Dispatch } from 'redux';
 import { IState } from '../store';
 import { IUser, UPDATE_USER } from '../store/users';
 
+interface IStateProps {
+    users: Record<number, IUser>;
+}
 
-const mapStateToProps = (state: IState) => ({
+const mapStateToProps = (state: IState): IStateProps => ({
     users: state.users.usersDict
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+interface IDispatchProps {
+    updateUser: (userId: number, user: IUser) => void;
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => ({
     updateUser: (userId: number, user: IUser) => dispatch({ type: UPDATE_USER, user, userId })
 });
 
