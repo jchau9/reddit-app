@@ -59,7 +59,7 @@ const App: React.SFC = () => (
         <Route exact path="/about" component={About} />
         <Route
           path="/users"
-          render={props => <ConnectedUsers {...props}/>}
+          component={ConnectedUsers}/>}
         />
       </Switch>
     </Provider>

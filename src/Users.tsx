@@ -28,7 +28,7 @@ interface IProps extends RouteComponentProps<{}> {
     );
 } */
 
-const Users: React.SFC<IProps> = ({users, updateUser}) => {
+const Users: React.SFC<IProps> = ({users, updateUser, match}) => {
     const values = Object.keys(users).map(key => users[key]);
     return (
         <div>
@@ -45,7 +45,7 @@ const Users: React.SFC<IProps> = ({users, updateUser}) => {
                 </li>
             )}
             <Route
-                path={`${this.props.location.pathname}/:userId`}
+                path={`${match.path}/:userId`}
                 render={props => {
                     return (
                         <EditForm
