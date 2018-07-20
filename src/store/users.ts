@@ -1,39 +1,38 @@
 import { IUser } from '../user'
 
-export interface IState{
+export interface IState {
     usersDict: Record<number, IUser>;
 };
 
 export const UPDATE_USER = 'UPDATE_USER';
 
-const usersDict =  {
+const usersDict = {
     0: { name: 'Ernesto', age: '56', occupation: 'retired gardener', description: 'bad at gardening', userId: 0 },
     1: { name: 'Wallace', age: '36', occupation: 'dogwalker', description: 'walks cats in his free time', userId: 1 },
     2: { name: 'Fabio', age: '23', occupation: 'student', description: 'trying to pay off debt and drink boba', userId: 2 }
-}; 
+};
 
-interface IAction
-    {
-        type: typeof UPDATE_USER;
-        user: IUser;
-        userId: number;
-    };
-    
+interface IAction {
+    type: typeof UPDATE_USER;
+    user: IUser;
+    userId: number;
+};
+
 export default function users(
     state: IState = {
         usersDict: (usersDict)
     },
     action: IAction
-) : IState {
-    /* switch (action.type) {
+): IState {
+    switch (action.type) {
         case UPDATE_USER:
             return {
                 ...state,
-                usersDict: {...state.usersDict, [action.userId]:action.user}
+                usersDict: { ...state.usersDict, [action.userId]: action.user }
             };
         default:
             return state;
-    } */
+    }
     // tslint:disable-next-line:no-console
     console.log(state.usersDict)
     return state;

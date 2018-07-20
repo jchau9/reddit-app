@@ -1,10 +1,14 @@
-import {createStore} from 'redux';
-import users, {IState as UsersState} from './users';
+import { combineReducers, createStore } from 'redux';
+import users, { IState as UsersState } from './users';
 
 export interface IState {
     users: UsersState;
 };
 
-const store = createStore(users);
+const rootReducer = combineReducers({
+    users
+});
+
+const store = createStore(rootReducer);
 
 export default store;
