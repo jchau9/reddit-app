@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Link, Route, RouteComponentProps } from 'react-router-dom';
-import EditForm from './EditForm'
-import { IUser } from './store/users'
+import form from './containers/form';
+import EditForm from './EditForm';
+import { IUser } from './store/users';
 
+const ConnectedForm = form(EditForm);
 
 interface IProps extends RouteComponentProps<{}> {
     users: Record<number, IUser>;
-    updateUser: (userId: number, user: IUser) => void;
 }
 
-const Users: React.SFC<IProps> = ({ users, updateUser, match }) => {
+const Users: React.SFC<IProps> = ({ users, match }) => {
     const values = Object.keys(users).map(key => users[key]);
     return (
         <div>
@@ -27,19 +28,13 @@ const Users: React.SFC<IProps> = ({ users, updateUser, match }) => {
             )}
             <Route
                 path={`${match.path}/:userId`}
-                render={props => {
-                    return (
-                        <EditForm
-                            key={`USER_ROUTE_${props.match.params.userId}`}
-                            {...props}
-                            user={users[props.match.params.userId]}
-                            updateUser={updateUser}
-                        />
-                    );
-                }}
+                component={ConnectedForm}
             />
         </div >
     );
 };
-
+/* key={`USER_ROUTE_${props.match.params.userId}`}
+{...props}
+user={users[props.match.params.userId]}
+updateUser={updateUser} */
 export default Users;
