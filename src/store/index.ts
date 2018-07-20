@@ -1,10 +1,10 @@
 import {createStore} from 'redux';
-import user, {State as UserState} from './user';
+import users, {State as UsersState} from './users';
 
 export type State = {
-    user: UserState;
+    users: UsersState;
 };
 
-const store = createStore(user);
+const store = createStore(users);
 
 export default store;

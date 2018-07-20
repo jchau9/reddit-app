@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { IUser } from './user';
-import Context from './UserContext';
-
 
 interface IProps extends RouteComponentProps<{}> {
     user: IUser;
+    updateUser: (userId: number, user: IUser) => void;
 }
 
 interface IState {
@@ -40,7 +39,15 @@ class EditForm extends React.Component<IProps, IState> {
                     <p>Description:</p>
                     <textarea name="description" value={this.state.description} onChange={this.handleChange} />
                     <br />
-                    <Context.Consumer>
+                    <button
+                        onClick={() => 
+                            this.props.updateUser(this.props.user.userId, 
+                                { ...this.state, userId: this.props.user.userId }
+                        )}
+                    >
+                        Submit
+                    </button>
+                    {/* <Context.Consumer>
                         {({ updateUser }) => (
                             <button
                                 onClick={this.handleClick(updateUser)}
@@ -48,7 +55,7 @@ class EditForm extends React.Component<IProps, IState> {
                                 Submit
                             </button>
                         )}
-                    </Context.Consumer>
+                    </Context.Consumer> */}
                 </div>
             </div >
         );
@@ -58,11 +65,11 @@ class EditForm extends React.Component<IProps, IState> {
         this.setState({ [event.currentTarget.name]: event.currentTarget.value } as Pick<IState, keyof IState>);
     }
 
-    private handleClick = (updateUser: (userId: number, data: IUser) => void) =>
+/*     private handleClick = (updateUser: (userId: number, data: IUser) => void) =>
         (event: React.FormEvent<HTMLButtonElement>) => {
             event.preventDefault();
             updateUser(this.props.user.userId, { ...this.state, userId: this.props.user.userId });
-        }
+        }  */
 
 }
 
