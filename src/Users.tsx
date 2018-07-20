@@ -45,7 +45,7 @@ const Users: React.SFC<IProps> = ({users, updateUser}) => {
                 </li>
             )}
             <Route
-                path={`${this.props.match.path}/:userId`}
+                path={`${this.props.location.pathname}/:userId`}
                 render={props => {
                     return (
                         <EditForm
