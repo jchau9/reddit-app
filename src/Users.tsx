@@ -28,7 +28,7 @@ const Users: React.SFC<IProps> = ({ users, match }) => {
             )}
             <Route
                 path={`${match.path}/:userId`}
-                component={ConnectedForm}
+                render={(props) => <ConnectedForm {...props} userId={props.match.params.userId} />}
             />
         </div >
     );

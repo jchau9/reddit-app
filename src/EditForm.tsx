@@ -3,13 +3,12 @@ import { RouteComponentProps } from 'react-router-dom';
 import { IUser } from './store/users';
 
 interface IProps extends RouteComponentProps<{}> {
-    user: IUser;
     updateUser: (userId: number, user: IUser) => void;
-    handleChange: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     age: string;
     description: string;
     name: string;
     occupation: string;
+    userId: number;
 }
 
 /* interface IState {
@@ -29,27 +28,29 @@ interface IProps extends RouteComponentProps<{}> {
         occupation: props.user.occupation,
     };
 } */
-const EditForm: React.SFC<IProps> = ({ user, updateUser, handleChange, age, description, name, occupation }) => {
+const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occupation, userId }) => {
+    // const handleChange = () => { };
+    // make a new class, pass to top level, and let info trickle down to the form
     return (
         <div>
             <h1>{name}</h1>
             <div>
                 <p>Name:</p>
-                <input type="text" name="name" value={name} onChange={handleChange} />
+                <input type="text" name="name" defaultValue={name} />
                 <p>Age:</p>
-                <input type="text" name="age" value={age} onChange={handleChange} />
+                <input type="text" name="age" defaultValue={age} />
                 <p>Occupation:</p>
-                <input type="text" name="occupation" value={occupation} onChange={handleChange} />
+                <input type="text" name="occupation" defaultValue={occupation} />
                 <p>Description:</p>
-                <textarea name="description" value={description} onChange={handleChange} />
+                <textarea name="description" defaultValue={description} />
                 <br />
                 <button
                     onClick={() =>
-                        updateUser(user.userId, { ...user, userId: user.userId })
+                        updateUser(userId, this.state)
                     }
                 >
                     Submit
-                    </button>
+                </button>
             </div>
         </div >);
 };

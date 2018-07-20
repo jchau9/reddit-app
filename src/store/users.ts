@@ -12,7 +12,7 @@ export interface IState {
 
 export const UPDATE_USER = 'UPDATE_USER';
 
-const usersDict = {
+export const usersDict = {
     0: { name: 'Ernesto', age: '56', occupation: 'retired gardener', description: 'bad at gardening', userId: 0 },
     1: { name: 'Wallace', age: '36', occupation: 'dogwalker', description: 'walks cats in his free time', userId: 1 },
     2: { name: 'Fabio', age: '23', occupation: 'student', description: 'trying to pay off debt and drink boba', userId: 2 }
