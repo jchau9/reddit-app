@@ -5,7 +5,6 @@ import { IUser } from './store/users';
 
 interface IProps extends RouteComponentProps<{}> {
     updateUser: (userId: number, user: IUser) => void;
-    handleChange: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     age: string;
     description: string;
     name: string;
@@ -13,31 +12,63 @@ interface IProps extends RouteComponentProps<{}> {
     userId: number;
 }
 
-const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occupation, userId, handleChange }) => {
-    return (
-        <div>
-            <h1>{name}</h1>
+interface IState {
+    age: string;
+    description: string;
+    name: string;
+    occupation: string;
+}
+
+class EditForm extends React.Component<IProps, IState> {
+    public constructor(props: IProps) {
+        super(props);
+
+        this.state = {
+            age: props.age,
+            description: props.description,
+            name: props.name,
+            occupation: props.occupation,
+        };
+    }
+
+    public render() {
+        return (
             <div>
-                <p>Name:</p>
-                <input type="text" name="name" defaultValue={name} onChange={handleChange} />
-                <p>Age:</p>
-                <input type="text" name="age" defaultValue={age} onChange={handleChange} />
-                <p>Occupation:</p>
-                <input type="text" name="occupation" defaultValue={occupation} onChange={handleChange} />
-                <p>Description:</p>
-                <textarea name="description" defaultValue={description} onChange={handleChange} />
-                <br />
-                <button
-                    onClick={() =>
-                        alert('click')
-                        // updateUser(userId, state)
-                    }
-                >
-                    Submit
-                </button>
-            </div>
-        </div >
-    );
-};
+                <h1>{name}</h1>
+                <form onSubmit={this.handleSubmit}>
+                    <p>Name:</p>
+                    <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+                    <p>Age:</p>
+                    <input type="text" name="age" value={this.state.age} onChange={this.handleChange} />
+                    <p>Occupation:</p>
+                    <input type="text" name="occupation" value={this.state.occupation} onChange={this.handleChange} />
+                    <p>Description:</p>
+                    <textarea name="description" value={this.state.description} onChange={this.handleChange} />
+                    <br />
+                    <button type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div >
+        );
+    }
+
+    private handleChange: React.FormEventHandler<HTMLInputElement | HTMLTextAreaElement> = event => {
+        const { name, value } = event.currentTarget;
+        this.setState(state => ({
+            ...state,
+            [name]: [value]
+        }));
+    };
+
+    private handleSubmit: React.FormEventHandler<HTMLFormElement> = event => {
+        event.preventDefault();
+        this.props.updateUser(this.props.userId, {
+            ...this.state,
+            userId: this.props.userId
+        });
+    };
+}
+
 
 export default EditForm;
