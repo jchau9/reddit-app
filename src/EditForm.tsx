@@ -30,7 +30,7 @@ interface IProps extends RouteComponentProps<{}> {
 } */
 const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occupation, userId }) => {
     // const handleChange = () => { };
-    // make a new class, pass to top level, and let info trickle down to the form
+    // make a new class, pass to top level, and let info trickle down to the form wtf?? 
     return (
         <div>
             <h1>{name}</h1>
@@ -44,13 +44,13 @@ const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occup
                 <p>Description:</p>
                 <textarea name="description" defaultValue={description} />
                 <br />
-                <button
+                {/* <button
                     onClick={() =>
                         updateUser(userId, this.state)
                     }
                 >
                     Submit
-                </button>
+                </button> */}
             </div>
         </div >);
 };
