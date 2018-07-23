@@ -34,7 +34,7 @@ class EditForm extends React.Component<IProps, IState> {
     public render() {
         return (
             <div>
-                <h1>{name}</h1>
+                <h1>{this.state.name}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <p>Name:</p>
                     <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
