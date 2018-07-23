@@ -28,13 +28,14 @@ const Users: React.SFC<IProps> = ({ users, match }) => {
             )}
             <Route
                 path={`${match.path}/:userId`}
-                render={(props) => <ConnectedForm {...props} userId={props.match.params.userId} />}
+                render={(props) => 
+                    <ConnectedForm 
+                        key={`USER_ROUTE_${props.match.params.userId}`}
+                        {...props} 
+                        userId={props.match.params.userId} 
+                    />}
             />
         </div >
     );
 };
-/* key={`USER_ROUTE_${props.match.params.userId}`}
-{...props}
-user={users[props.match.params.userId]}
-updateUser={updateUser} */
 export default Users;

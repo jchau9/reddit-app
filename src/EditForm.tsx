@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+// import {IState as state} from './store';
 import { IUser } from './store/users';
+
 
 interface IProps extends RouteComponentProps<{}> {
     updateUser: (userId: number, user: IUser) => void;
+    handleChange: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     age: string;
     description: string;
     name: string;
@@ -18,45 +21,37 @@ interface IProps extends RouteComponentProps<{}> {
     occupation: string;
 } */
 
-// class EditForm extends React.Component<IProps, {}> {
-/* constructor(props: IProps) {
-    super(props);
-    this.state = {
-        age: props.user.age,
-        description: props.user.description,
-        name: props.user.name,
-        occupation: props.user.occupation,
-    };
-} */
-const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occupation, userId }) => {
-    // const handleChange = () => { };
-    // make a new class, pass to top level, and let info trickle down to the form wtf?? 
+const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occupation, userId, handleChange}) => {
+    const state = ({
+        age,
+        description,
+        name,
+        occupation,
+        userId
+    })
     return (
         <div>
             <h1>{name}</h1>
             <div>
                 <p>Name:</p>
-                <input type="text" name="name" defaultValue={name} />
+                <input type="text" name="name" defaultValue={name} onChange={handleChange}/>
                 <p>Age:</p>
-                <input type="text" name="age" defaultValue={age} />
+                <input type="text" name="age" defaultValue={age} onChange={handleChange}/>
                 <p>Occupation:</p>
-                <input type="text" name="occupation" defaultValue={occupation} />
+                <input type="text" name="occupation" defaultValue={occupation} onChange={handleChange}/>
                 <p>Description:</p>
-                <textarea name="description" defaultValue={description} />
+                <textarea name="description" defaultValue={description} onChange={handleChange}/>
                 <br />
-                {/* <button
+                <button
                     onClick={() =>
-                        updateUser(userId, this.state)
+                        updateUser(userId, state) // how to pass in updated user after onchange?? 
                     }
                 >
                     Submit
-                </button> */}
+                </button>
             </div>
-        </div >);
+        </div >
+    );
 };
-
-/*  private handleChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
- this.setState({ [event.currentTarget.name]: event.currentTarget.value } as Pick<IState, keyof IState>);
-} */
 
 export default EditForm;

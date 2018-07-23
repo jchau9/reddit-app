@@ -32,6 +32,12 @@ export default function users(
 ): IState {
     switch (action.type) {
         case UPDATE_USER:
+            // tslint:disable-next-line:no-console
+            console.log(state.usersDict);
+            // tslint:disable-next-line:no-console
+            console.log(action.userId);
+            // tslint:disable-next-line:no-console
+            console.log(action.user);
             return {
                 ...state,
                 usersDict: { ...state.usersDict, [action.userId]: action.user }

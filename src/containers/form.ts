@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { IState } from '../store';
+import {HANDLE_CHANGE} from '../store/form';
 import { IUser, UPDATE_USER } from '../store/users';
 
 
@@ -25,10 +26,11 @@ const mapStateToProps = (state: IState, ownProps: IOwnProps): IStateProps => ({
 
 interface IDispatchProps {
     updateUser: (userId: number, user: IUser) => void;
+    handleChange: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
-
 const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => ({
+    handleChange: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => dispatch({type: HANDLE_CHANGE, event }),
     updateUser: (userId: number, user: IUser) => dispatch({ type: UPDATE_USER, user, userId })
 });
 
