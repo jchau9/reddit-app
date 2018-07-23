@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-// import {IState as state} from './store';
 import { IUser } from './store/users';
 
 
@@ -14,37 +13,24 @@ interface IProps extends RouteComponentProps<{}> {
     userId: number;
 }
 
-/* interface IState {
-    age: string;
-    description: string;
-    name: string;
-    occupation: string;
-} */
-
-const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occupation, userId, handleChange}) => {
-    const state = ({
-        age,
-        description,
-        name,
-        occupation,
-        userId
-    })
+const EditForm: React.SFC<IProps> = ({ updateUser, age, description, name, occupation, userId, handleChange }) => {
     return (
         <div>
             <h1>{name}</h1>
             <div>
                 <p>Name:</p>
-                <input type="text" name="name" defaultValue={name} onChange={handleChange}/>
+                <input type="text" name="name" defaultValue={name} onChange={handleChange} />
                 <p>Age:</p>
-                <input type="text" name="age" defaultValue={age} onChange={handleChange}/>
+                <input type="text" name="age" defaultValue={age} onChange={handleChange} />
                 <p>Occupation:</p>
-                <input type="text" name="occupation" defaultValue={occupation} onChange={handleChange}/>
+                <input type="text" name="occupation" defaultValue={occupation} onChange={handleChange} />
                 <p>Description:</p>
-                <textarea name="description" defaultValue={description} onChange={handleChange}/>
+                <textarea name="description" defaultValue={description} onChange={handleChange} />
                 <br />
                 <button
                     onClick={() =>
-                        updateUser(userId, state) // how to pass in updated user after onchange?? 
+                        alert('click')
+                        // updateUser(userId, state)
                     }
                 >
                     Submit

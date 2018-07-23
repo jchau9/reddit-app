@@ -15,7 +15,7 @@ interface IAction {
 };
 
 export default function form(
-    state: IState = { // how to pass intial values ??? is this file necessary? 
+    state: IState = { // how to pass intial values ???
         age: "",
         description: "",
         name: "",
@@ -25,8 +25,6 @@ export default function form(
 ): IState {
     switch (action.type) {
         case HANDLE_CHANGE:
-            // tslint:disable-next-line:no-console
-            console.log(state);
             return {
                 ...state,
                 [action.event.currentTarget.name]: action.event.currentTarget.value
