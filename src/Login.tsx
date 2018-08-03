@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { parse } from 'query-string';
+import { initializeToken } from './actions'
 
 const clientID = 'r-olaTpMhjY8AQ'
 const redirectURI = 'http://localhost:3000'
@@ -41,7 +42,7 @@ class Login extends React.Component<IProps, {}> {
         const { state, code, error } = parse(this.props.location.search)
         if (state && code) {
             if (state === localStorage.getItem('authState')) {
-                this.boundActionCreators.initializeToken(code)
+                initializeToken(code)
             } else {
                 console.log('Authorization Error: Invalid state.')
             }
