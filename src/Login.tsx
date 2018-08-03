@@ -19,7 +19,7 @@ const authorizationURL =
     `https://www.reddit.com/api/v1/authorize` +
     `?client_id=${clientID}` +
     `&response_type=code` +
-    `&state=${randomString(10)}` +
+    `&state=${sessionStorage.getItem('authState')}` +
     `&redirect_uri=${redirectURI}` +
     `&duration=permanent` +
     `&scope=submit`
@@ -33,6 +33,9 @@ class Login extends React.Component<IProps, {}> {
         // redirect to '/post' if authentiated
         if (this.props.isAuthenticated) {
             this.props.history.push('/post')
+            // if not authenticated, make sure that authState is set
+        } else if (!sessionStorage.getItem('authState')) {
+            sessionStorage.setItem('authState', randomString(10))
         }
     }
 
@@ -41,12 +44,19 @@ class Login extends React.Component<IProps, {}> {
         // redirected back to this page from reddit.com
         const { state, code, error } = parse(this.props.location.search)
         if (state && code) {
-            if (state === localStorage.getItem('authState')) {
+            if (state === sessionStorage.getItem('authState')) {
                 initializeToken(code)
             } else {
                 console.log('Authorization Error: Invalid state.')
             }
             if (state && error) console.log(error)
+        }
+    }
+
+    componentWillReceiveProps(nextProps: IProps) {
+        if (nextProps.isAuthenticated) {
+            sessionStorage.removeItem('authState')
+            this.props.history.push('/post')
         }
     }
 
