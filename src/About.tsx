@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const About = () => {
+const About: React.SFC = () => {
     return (
         <div>
             <h1>About</h1>
