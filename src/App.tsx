@@ -1,21 +1,21 @@
 import * as React from 'react';
+// import {Provider} from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
-/* import About from './About'; */
-// import Users from './Users';
 import Login from './Login';
+import PostForm from './PostForm';
 
-// import users from './containers/users';
 // import store from './store';
 
-// const ConnectedUsers = users(Users);
-
 const App: React.SFC = () => (
-  < React.Fragment >
-    <Switch>
-      <Route exact path="/" component={Login} />
-    </Switch>
-  </React.Fragment >
+  // <Provider store={store}>
+    < React.Fragment >
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/post" component={PostForm} />
+      </Switch>
+    </React.Fragment >
+  // </Provider>
 );
 
 export default App;

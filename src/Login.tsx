@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps} from 'react-router-dom';
 import { parse } from 'query-string';
-import { initializeToken } from './actions'
 
 const clientID = 'r-olaTpMhjY8AQ'
 const redirectURI = 'http://localhost:3000'
@@ -24,40 +23,57 @@ const authorizationURL =
     `&duration=permanent` +
     `&scope=submit`
 
-interface IProps extends RouteComponentProps<{}> {
-    isAuthenticated: boolean
-}
+class Login extends React.Component<RouteComponentProps<{}>, {}> {
+    state = {
+        loading: false,
+        token: null,
+        error: null,
+        isAuthenticated: false
+    }
 
-class Login extends React.Component<IProps, {}> {
+    getToken = async (code: any) => {
+        let url = `https://www.reddit.com/api/v1/access_token`
+        /* url += `?grant_type=authorization_code&code=${code}`
+        url += `&redirect_uri=${redirectURI}` */
+        this.setState(state => ({...state, loading: true}));
+        try{
+            const res = await fetch(url, {
+                method: 'POST',
+                body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectURI}`
+            });
+            const json = await res.json();
+            this.setState(state => ({...state, loading: false, token: json.message}));
+        } catch (e) {
+            this.setState(state => ({...state, loading: false, err:e}));
+        }
+    };
+
     componentWillMount() {
         // redirect to '/post' if authentiated
-        if (this.props.isAuthenticated) {
-            this.props.history.push('/post')
+        if (this.state.isAuthenticated) {
+            this.props.history.push('/post');
             // if not authenticated, make sure that authState is set
         } else if (!sessionStorage.getItem('authState')) {
             sessionStorage.setItem('authState', randomString(10))
         }
     }
-
+    
     componentDidMount() {
         // check auth state and fetch OAuth token when
         // redirected back to this page from reddit.com
         const { state, code, error } = parse(this.props.location.search)
         if (state && code) {
             if (state === sessionStorage.getItem('authState')) {
-                initializeToken(code)
+                //this.getToken(code);
+                this.state.isAuthenticated = true;
+                console.log(code);
+                console.log(this.state.token);
+                this.props.history.push('/post');
             } else {
                 console.log('Authorization Error: Invalid state.')
             }
-            if (state && error) console.log(error)
-        }
-    }
-
-    componentWillReceiveProps(nextProps: IProps) {
-        if (nextProps.isAuthenticated) {
-            sessionStorage.removeItem('authState')
-            this.props.history.push('/post')
-        }
+        }    
+        if (state && error) console.log(error)
     }
 
     public render() {
@@ -69,7 +85,10 @@ class Login extends React.Component<IProps, {}> {
             </div >
         )
     }
-
 }
 
+/* const mapStateToProps = (state: IState) => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+ */
 export default Login;
