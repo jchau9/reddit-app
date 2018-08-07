@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { RouteComponentProps} from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { parse } from 'query-string';
+import axios from 'axios'
 
 const clientID = 'r-olaTpMhjY8AQ'
 const redirectURI = 'http://localhost:3000'
+const clientSecret = 'CRxehxYHh_Q1VpdXT4j1KRRKnFs'
 
 const randomString = (length: number) => {
     let text = ''
@@ -25,9 +27,6 @@ const authorizationURL =
 
 class Login extends React.Component<RouteComponentProps<{}>, {}> {
     state = {
-        loading: false,
-        token: null,
-        error: null,
         isAuthenticated: false,
     }
 
@@ -40,32 +39,35 @@ class Login extends React.Component<RouteComponentProps<{}>, {}> {
             localStorage.setItem('authState', randomString(10))
         }
     }
-    
+
     async componentDidMount() {
-        // check auth state and fetch OAuth token when
+        // check auth state and fetch OAuth data when
         // redirected back to this page from reddit.com
         const { state, code, error } = parse(this.props.location.search)
         if (state && code) {
             if (state === localStorage.getItem('authState')) {
                 let url = `https://www.reddit.com/api/v1/access_token`
-                this.setState(state => ({...state, loading: true}));
-                try{
-                    const res = await fetch(url, {
-                        method: 'POST',
-                        body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectURI}`,
-                    });
-                    const json = await res.json();
-                    this.setState(state => ({...state, loading: false, token: json.message, isAuthenticated: true}));
-                } catch (e) {
-                    this.setState(state => ({...state, loading: false, err:e}));
+                url += `?grant_type=authorization_code&code=${code}&redirect_uri=${redirectURI}`
+                const config = {
+                    auth: {
+                        username: clientID,
+                        password: clientSecret
+                    },
+                    method: 'POST',
+                    url
                 }
-                console.log(code);
-                console.log(this.state.token);
-                this.props.history.push('/post');
+                try {
+                    const res = await axios(config)
+                    const json = await res.data
+                    console.log(json)
+                    this.props.history.push('/post');
+                } catch (e) {
+                    console.log(e)
+                }
             } else {
                 console.log('Authorization Error: Invalid state.')
             }
-        }    
+        }
         if (state && error) console.log(error)
     }
 
