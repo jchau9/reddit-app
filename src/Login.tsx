@@ -25,14 +25,18 @@ const authorizationURL =
     `&duration=permanent` +
     `&scope=submit`
 
-class Login extends React.Component<RouteComponentProps<{}>, {}> {
-    state = {
-        isAuthenticated: false,
+interface IProps extends RouteComponentProps<{}> {
+    isAuthenticated: boolean;
+}
+
+class Login extends React.Component<IProps, {}> {
+    constructor(props: IProps) {
+        super(props)
     }
 
     componentWillMount() {
         // redirect to '/post' if authentiated
-        if (this.state.isAuthenticated) {
+        if (this.props.isAuthenticated) {
             this.props.history.push('/post');
             // if not authenticated, make sure that authState is set
         } else if (!localStorage.getItem('authState')) {
@@ -61,6 +65,7 @@ class Login extends React.Component<RouteComponentProps<{}>, {}> {
                     const json = await res.data
                     console.log(json)
                     this.props.history.push('/post');
+                    localStorage.setItem('access_token', json.access_token);
                 } catch (e) {
                     console.log(e)
                 }
@@ -77,7 +82,7 @@ class Login extends React.Component<RouteComponentProps<{}>, {}> {
                 <h1>Login</h1>
                 <p>Connect to your Reddit account.</p>
                 <a href={authorizationURL}>Connect</a>
-            </div >
+            </div>
         )
     }
 }

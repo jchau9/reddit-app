@@ -1,29 +1,21 @@
 import * as React from 'react';
-
-interface IProps {
-    title: string;
-    username: string;
-    subReddit: string;
-    text: string;
-}
+import axios from 'axios';
 
 interface IState {
-    username: string;
     title: string;
-    subReddit: string;
+    username: string;
+    subreddit: string;
     text: string;
 }
 
-class PostForm extends React.Component<IProps, IState> {
-    public constructor(props: IProps) {
-        super(props);
-        this.state = {
-            username: props.username,
-            title: props.title,
-            subReddit: props.subReddit,
-            text: props.text,
-        }
+class PostForm extends React.Component<{}, IState> {
+    state = {
+        username: '',
+        title: '',
+        subreddit: '',
+        text: '',
     }
+
     public render() {
         return (
             <div>
@@ -31,11 +23,11 @@ class PostForm extends React.Component<IProps, IState> {
                 <h2>Hello {this.state.username} </h2>
                 <form onSubmit={this.handleSubmit}>
                     <p>SubReddit</p>
-                    <input type="text" name="subreddit" />
+                    <input type="text" name="subreddit" value={this.state.subreddit} onChange={this.handleChange} />
                     <p>Title</p>
-                    <input type="text" name="title" />
+                    <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
                     <p>Text</p>
-                    <textarea name="text" />
+                    <textarea name="text" value={this.state.text} onChange={this.handleChange} />
                     <br />
                     <button type="submit">
                         Post to Reddit
@@ -45,9 +37,31 @@ class PostForm extends React.Component<IProps, IState> {
         )
     }
 
+    private postToReddit = () => {
+        const config = {
+            baseURL: 'https://oauth.reddit.com/api/submit',
+            headers: { 'Authorization': `bearer ${localStorage.getItem('access_token')}` },
+            method: 'POST',
+            data: {
+                'title': this.state.title,
+                'text': this.state.text,
+                'sr': this.state.subreddit
+            }
+        }
+        axios(config).then(res => { console.log(res); console.log(res.data); })
+    }
+
+    private handleChange: React.FormEventHandler<HTMLInputElement | HTMLTextAreaElement> = event => {
+        const { name, value } = event.currentTarget;
+        this.setState(state => ({
+            ...state,
+            [name]: [value]
+        }))
+    };
+
     private handleSubmit: React.FormEventHandler<HTMLFormElement> = event => {
         event.preventDefault();
-        console.log('submit');
+        this.postToReddit();
     }
 }
 export default PostForm;

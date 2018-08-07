@@ -2,24 +2,33 @@ export interface IState {
     isAuthenticated: boolean;
 };
 
-export const FETCH_TOKEN_REQUEST = 'FETCH_TOKEN_REQUEST'
-export const FETCH_TOKEN_SUCCES = 'FETCH_TOKEN_SUCCESS'
+export const FETCH_TOKEN_SUCCESS = 'FETCH_TOKEN_SUCCESS'
 export const FETCH_TOKEN_FAILURE = 'FETCH_TOKEN_FAILURE'
 
-interface IAction {
-    type: typeof FETCH_TOKEN_REQUEST;
-}
+type IAction = | {
+    type: 'FETCH_TOKEN_SUCCESS'
+} | {
+    type: 'FETCH_TOKEN_FAILURE'
+};
 
 export default function auth(
     state: IState = {
-        isAuthenticated: false
+        isAuthenticated: Boolean(localStorage.getItem('accessToken'))
     },
     action: IAction
 ): IState {
     switch (action.type) {
-        case FETCH_TOKEN_REQUEST:
+        case FETCH_TOKEN_SUCCESS:
             return {
-                ...state
+                ...state,
+                isAuthenticated: true
             }
+        case FETCH_TOKEN_FAILURE:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
+        default:
+            return state;
     }
 }
