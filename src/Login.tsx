@@ -26,12 +26,16 @@ const authorizationURL =
     `&scope=submit`
 
 class Login extends React.Component<RouteComponentProps<{}>, {}> {
+    state = {
+        isAuthenticated: false,
+    }
+
     componentWillMount() {
         // redirect to '/post' if authentiated
-        if (sessionStorage.getItem('authState')) {
+        if (this.state.isAuthenticated) {
             this.props.history.push('/post');
-        // if not authenticated, make sure that authState is set
-        } else {
+            // if not authenticated, make sure that authState is set
+        } else if (!sessionStorage.getItem('authState')) {
             sessionStorage.setItem('authState', randomString(10))
         }
     }

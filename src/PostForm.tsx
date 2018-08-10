@@ -38,7 +38,7 @@ class PostForm extends React.Component<{}, IState> {
         let url = 'https://oauth.reddit.com/api/submit'
         url += `?sr=${this.state.subreddit}&title=${this.state.title}&kind=self&text=${this.state.text}&resubmit=true&send_replies=true`
         const config = {
-            headers: { 'Authorization': `bearer ${localStorage.getItem('access_token')}` },
+            headers: { 'Authorization': `bearer ${sessionStorage.getItem('access_token')}` },
             method: 'POST',
             url
         }
