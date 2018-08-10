@@ -20,27 +20,19 @@ const authorizationURL =
     `https://www.reddit.com/api/v1/authorize` +
     `?client_id=${clientID}` +
     `&response_type=code` +
-    `&state=${localStorage.getItem('authState')}` +
+    `&state=${sessionStorage.getItem('authState')}` +
     `&redirect_uri=${redirectURI}` +
     `&duration=permanent` +
     `&scope=submit`
 
-interface IProps extends RouteComponentProps<{}> {
-    isAuthenticated: boolean;
-}
-
-class Login extends React.Component<IProps, {}> {
-    constructor(props: IProps) {
-        super(props)
-    }
-
+class Login extends React.Component<RouteComponentProps<{}>, {}> {
     componentWillMount() {
         // redirect to '/post' if authentiated
-        if (this.props.isAuthenticated) {
+        if (sessionStorage.getItem('authState')) {
             this.props.history.push('/post');
-            // if not authenticated, make sure that authState is set
-        } else if (!localStorage.getItem('authState')) {
-            localStorage.setItem('authState', randomString(10))
+        // if not authenticated, make sure that authState is set
+        } else {
+            sessionStorage.setItem('authState', randomString(10))
         }
     }
 
@@ -49,7 +41,7 @@ class Login extends React.Component<IProps, {}> {
         // redirected back to this page from reddit.com
         const { state, code, error } = parse(this.props.location.search)
         if (state && code) {
-            if (state === localStorage.getItem('authState')) {
+            if (state === sessionStorage.getItem('authState')) {
                 let url = `https://www.reddit.com/api/v1/access_token`
                 url += `?grant_type=authorization_code&code=${code}&redirect_uri=${redirectURI}`
                 const config = {
@@ -65,7 +57,7 @@ class Login extends React.Component<IProps, {}> {
                     const json = await res.data
                     console.log(json)
                     this.props.history.push('/post');
-                    localStorage.setItem('access_token', json.access_token);
+                    sessionStorage.setItem('access_token', json.access_token);
                 } catch (e) {
                     console.log(e)
                 }

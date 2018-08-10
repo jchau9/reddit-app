@@ -3,14 +3,12 @@ import axios from 'axios';
 
 interface IState {
     title: string;
-    username: string;
     subreddit: string;
     text: string;
 }
 
 class PostForm extends React.Component<{}, IState> {
     state = {
-        username: '',
         title: '',
         subreddit: '',
         text: '',
@@ -20,7 +18,6 @@ class PostForm extends React.Component<{}, IState> {
         return (
             <div>
                 <h1>Reddit Post</h1>
-                <h2>Hello {this.state.username} </h2>
                 <form onSubmit={this.handleSubmit}>
                     <p>SubReddit</p>
                     <input type="text" name="subreddit" value={this.state.subreddit} onChange={this.handleChange} />
